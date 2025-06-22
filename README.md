@@ -1,8 +1,8 @@
-#  Gender Classification from audio using DSAP (Digital Signal Analysis & Processing)
+# Gender Classification using DSAP (Digital Signal Analysis & Processing)
 
-This project is developed as a final project for the subject **DSAP (Digital Signal Analysis and Processing)** in the 7th semester of the Computer Engineering curriculum at IOE, Tribhuvan University.
+This project is developed for the subject **DSAP (Digital Signal Analysis and Processing)** in the 7th semester of Computer Engineering curriculum at IOE, Tribhuvan University.
 
-The main aim is to implement DSAP techniques practically using **Python** and popular libraries like `scipy`, `librosa`, and `sklearn`, and apply them in a **real-world use case**: identifying speaker gender from **spoken Nepali audio**.
+The main aim is to implement DSAP techniques practically using **Python** and popular libraries like `scipy`, `librosa`, and `sklearn`, and apply them in a **real-world use case**: identifying speaker gender from **spoken Nepali audio** using traditional signal processing techniques and machine learning algorithms.
 
 ---
 
@@ -25,14 +25,16 @@ The main aim is to implement DSAP techniques practically using **Python** and po
 
 ## Project Structure
 
-```
-├── eda.py                 # Exploratory data analysis and signal processing
-├── feature_creation.py   # Feature extraction (MFCC, ZCR, etc.)
-├── model_training.py     # Model training, evaluation, and predictions
-├── metadata.csv          # Contains file names and gender labels
-├── train_data.csv        # Final feature set for training
-├── README.md             # Project documentation
-```
+
+├──Notebooks    ==>> Main processing and development
+
+  ├── [eda.ipynb](./notebooks/EDA.ipynb)                ==>> Exploratory data analysis and signal processing
+ 
+  ├── [feature_creation.ipynb](./notebooks/feature%20creation.ipynb)                              ==>> Feature extraction (MFCC, ZCR, etc.)
+ 
+  ├── [model.ipynb](./notebooks/model.ipynb)                                ==>> Model training, evaluation, and predictions
+                 
+
 
 ---
 
@@ -46,22 +48,43 @@ The main aim is to implement DSAP techniques practically using **Python** and po
   * This filter removes mic hums and high-frequency hiss.
 * Visualize frequency response using `matplotlib`.
 
+![Butterworth Frequency Response](images/butterworth%20frequency%20response.png)
+
+This plot shows the frequency range preserved after applying the Butterworth filter. Only signals between 80 Hz and 3000 Hz are retained.
+
 ### 2. **Framing & Windowing**
 
 * Audio is split into **25 ms frames** with **10 ms hop** (overlap).
+
+![Framing](images/framing.png)
+
+This figure shows how a small segment of the signal is extracted using framing (Time vs Amplitude).
+
 * Apply **Hamming window** to smooth edges of frames.
-* Plot time-domain signals before and after windowing.
+
+![Hamming Window](images/hamming%20window.png)
+
+After windowing, the edges of each frame are softened to avoid spectral leakage.
+
 * Compute **FFT** of frames to analyze frequency content.
 * Generate a **spectrogram** (Frequency vs Time) visualization.
+
+![Spectrogram](images/spectrogram.png)
+
+Spectrogram represents how frequency content varies over time. It helps visualize speech patterns clearly.
 
 ### 3. **Spectral Features**
 
 * Extract **Spectral Centroid**: indicates the "center of mass" of the frequency spectrum.
 * Helps differentiate between male and female voices (males typically have lower centroids).
 
+![Spectral Centroid](images/spectral%20centroid.png)
+
+The curve shows how spectral centroid varies with time for a sample speech signal.
+
 ---
 
-## Feature Extraction (feature\_creation.py)
+##  Feature Extraction (feature\_creation.py)
 
 For each audio sample, we compute:
 
@@ -86,8 +109,6 @@ For each audio sample, we compute:
 6. Logarithm
 7. DCT (Discrete Cosine Transform)
 
-> Final features are stored in `train_data.csv`
-
 ---
 
 ## Model Training and Evaluation (model\_training\_and\_testing.py)
@@ -109,19 +130,7 @@ For each audio sample, we compute:
 
 ---
 
-## Sample Results
-
-```
-Logistic Regression | Mean F1 Score: 0.88
-KNN                 | Mean F1 Score: 0.84
-Decision Tree       | Mean F1 Score: 0.86
-Random Forest       | Mean F1 Score: 0.89
-SVM                 | Mean F1 Score: 0.87
-Gradient Boosting   | Mean F1 Score: 0.90
-MLP Classifier      | Mean F1 Score: 0.91 ✅
-```
-
-## 🔍 Inference Demo
+##  Inference Demo
 
 To classify a new audio sample:
 
@@ -143,11 +152,15 @@ Output will be `male` or `female`.
 * `sklearn` – for ML model training, scaling, evaluation
 * `matplotlib`, `seaborn` – for visualizations
 
+---
 
-## Future Improvements
+## What We Learned
 
-* Improve speaker diversity in data
-* Use deep learning models (CNN, RNN)
-* Deploy as a real-time inference web app or API
-* Try multilingual models or domain adaptation
+* Practical use of digital filters (Butterworth bandpass)
+* Importance of MFCCs in speech processing
+* How to frame, window, and analyze audio
+* Feature engineering and ML model selection
+* Cross-validation and avoiding data leakage via pipelines
+
+---
 
