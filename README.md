@@ -154,13 +154,5 @@ Output will be `male` or `female`.
 
 ---
 
-## What We Learned
 
-* Practical use of digital filters (Butterworth bandpass)
-* Importance of MFCCs in speech processing
-* How to frame, window, and analyze audio
-* Feature engineering and ML model selection
-* Cross-validation and avoiding data leakage via pipelines
-
----
 
